@@ -11,31 +11,36 @@ public class StudentDatabase {
 		while (inputStudent) {
 		try {
 		int input = scnr.nextInt();
+		scnr.nextLine();
 		
 		String[] student = {"Vickie", "Fionna", "Igor", "Emma", "Nazia", "Irene", "Kyrie", "Morgan", "Carol", "Mary"};
-		String[] height = {"5'11", "5'6", "6'2", "4'11", "5'9", "5'5", "6'4", "5'1", "6'6", "5'7"};
+		String[] food = {"Ceasar Salad", "Square Pizza", "Sushi", "Pancakes", "Chicken Nuggets", "Grool", "Ice Cream", "Spaghetti", "Coconut Shrimp", "Mangoes"};
 		String[] home = {"Rochester Hills, MI", "Empire, MI", "Pittsburgh, PA", "Miami, FL", "Anchorage, AK", "Hayward, CA", "London, England", "Austin, TX", "Phoenix, AZ", "Cleveland, OH"};
 		
 		int value = (input - 1);
 		
-		System.out.print("Student " + input + " is " + student[value] + ". What would you like to know about " + student[value] + "? (enter or “hometown” or “height”): ");
+		System.out.print("Student " + input + " is " + student[value] + ". What would you like to know about " + student[value] + "? (enter or “hometown” or “favorite food”): ");
 		
-		String nextAnswer = scnr.next();
+		String nextAnswer = scnr.nextLine();
 		
-		//try {
+		try {
 		if (nextAnswer.equalsIgnoreCase("hometown")){
 			System.out.println(student[value] + " is from " + home[value]);
 		}
-		else if (nextAnswer.equalsIgnoreCase("height")){
-			System.out.println(student[value] + " is " + height[value]);
+		else if (nextAnswer.equalsIgnoreCase("favorite food")){
+			System.out.println(student[value] + "'s favorite food is/are " + food[value]);
 		}
-		else {
-			throw new IllegalAccessException ("Follow the directions");
+		else{
+			throw new IllegalArgumentException("FOLLOW THE DIRECTIONS");
 		}
-		
+		}catch(IllegalArgumentException e) {
+					System.out.println(e.getMessage());
+					main(args);
+		}
+	
 		System.out.print("Would you like to know more? (enter y or n) ");
 		
-		String repeat = scnr.next();
+		String repeat = scnr.nextLine();
 		
 		if (repeat.equalsIgnoreCase("y")) {
 			main(args);
@@ -45,12 +50,12 @@ public class StudentDatabase {
 			System.out.println("Thanks!");
 		}
 			
-		//
 		}catch(ArrayIndexOutOfBoundsException e) {
 			System.out.print("That student does not exist.  Please try again. (enter a number 1-10): ");
-	}catch(IllegalAccessException e) {
-		System.out.println(e.getMessage());
-		break;
+		}catch(InputMismatchException e) {
+		System.out.println("FOLLOW THE DIRECTIONS");
+		main(args);
 	}
+		
 
 }}}
